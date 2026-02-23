@@ -3,6 +3,9 @@
       "module": "ESNext",
       "moduleResolution": "bundler",
       "strict": true,
-      "verbatimModuleSyntax": true
+      "verbatimModuleSyntax": true,
+      "types":[
+        "vite/client"
+      ],
     }
   }
