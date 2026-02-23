@@ -1,3 +1,1 @@
-export function HelloWorld() {
-    console.log("Hello, world!");
-}
+export {RubiksCubeAnimation} from "./rubiks";
