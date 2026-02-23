@@ -1,0 +1,1 @@
+export {RubiksCubeAnimation} from "./rubiks";
