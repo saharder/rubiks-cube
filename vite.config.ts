@@ -8,6 +8,9 @@ export default defineConfig(({ mode }) => {
   if (mode === 'pages') {
     return {
       base: '/rubiks-cube/',
+      build: {
+        sourcemap: true,
+      },
     }
   }
 
