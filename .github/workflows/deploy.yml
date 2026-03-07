@@ -6,26 +6,13 @@ on:
   push:
     branches: ['main']
 
-  # Allows you to run this workflow manually from the Actions tab
-  workflow_dispatch:
-
-# Sets the GITHUB_TOKEN permissions to allow deployment to GitHub Pages
 permissions:
-  contents: read
-  pages: write
-  id-token: write
-
-# Allow one concurrent deployment
-concurrency:
-  group: 'pages'
-  cancel-in-progress: true
+  contents: read # to checkout repo
+  pages: write # to deploy to Pages
+  id-token: write # to verify the deployment originates from an appropriate source
 
 jobs:
-  # Single deploy job since we're just deploying
-  deploy:
-    environment:
-      name: github-pages
-      url: ${{ steps.deployment.outputs.page_url }}
+  build:
     runs-on: ubuntu-latest
     steps:
         # Checkout the repository so it can be accessed by the workflow
@@ -43,14 +30,23 @@ jobs:
           cache: 'pnpm' # caches pnpm dependencies between runs
       - name: Install dependencies
         run: pnpm install
-      - name: Build
+      - name: Build site
         run: pnpm run build:pages
+  deploy:
+    # add dependency on build job
+    needs: build
+    # deploy to the github-pages environment
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    runs-on: ubuntu-latest
+    steps:
       - name: Setup Pages
         uses: actions/configure-pages@v5
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v4
         with:
-          # Upload dist folder
+          # Upload the dist folder which is vite's default output folder
           path: './dist'
       - name: Deploy to GitHub Pages
         id: deployment
