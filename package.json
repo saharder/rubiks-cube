@@ -18,7 +18,7 @@
   "scripts": {
     "dev": "vite",
     "build": "vite build",
-    "build:pages": "vite build --config vite.config.pages.ts",
+    "build:pages": "vite build --config vite.pages.config.ts",
     "typecheck": "tsc --noEmit"
   },
   "peerDependencies": {
